@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DSH Phone Control · 网页遥控手机 DSH</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <span class="icon">📱</span>
+        <div>
+          <h1>DSH Phone Control</h1>
+          <p>网页端遥控另一台手机上的 DSH · 执行任务</p>
+        </div>
+      </div>
+      <div class="status" id="status">未连接</div>
+    </header>
+
+    <aside class="sidebar">
+      <section class="connection">
+        <h2>连接设置</h2>
+        <label>DSH 地址（隧道/反向代理后的 URL）</label>
+        <input type="url" id="baseUrl" placeholder="https://your-tunnel.trycloudflare.com" value="">
+        <label>Token / Bearer（可选）</label>
+        <input type="password" id="token" placeholder="launch token 或 API Key">
+        <div class="row">
+          <button id="connectBtn" class="primary">连接</button>
+          <button id="testBtn">测试</button>
+        </div>
+        <p class="hint">提示：手机上的 dsh-go 默认只监听 127.0.0.1。需要通过 Cloudflare Tunnel、Tailscale、dsh-remote 插件等方式把 Web 暴露出来。</p>
+      </section>
+
+      <section class="sessions">
+        <h2>会话</h2>
+        <button id="newSessionBtn" class="full">＋ 新建会话</button>
+        <ul id="sessionList"></ul>
+      </section>
+
+      <section class="quick">
+        <h2>快捷任务</h2>
+        <div class="chips" id="quickTasks"></div>
+      </section>
+    </aside>
+
+    <main>
+      <div class="chat-header">
+        <span id="currentSession">请选择或创建会话</span>
+        <button id="cancelBtn" class="danger" disabled>取消当前任务</button>
+      </div>
+      <div class="messages" id="messages"></div>
+      <div class="composer">
+        <textarea id="prompt" placeholder="输入任务，例如：打开微信，给「测试」发一条「你好」..." rows="3"></textarea>
+        <button id="sendBtn" class="primary">发送任务</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
